@@ -1,22 +1,44 @@
-function calculateMinCost() {
-    let input = document.getElementById("rope-lengths").value;
-    let arr = input.split(',').map(Number);
-
-    if (arr.length <= 1) {
-        document.getElementById("result").innerHTML = 0; // No cost if there's only one or no ropes
-        return;
-    }
-
-    let totalCost = 0;
-    arr.sort((a, b) => a - b); // Sort the ropes in ascending order
-
-    while (arr.length > 1) {
-        const sum = arr[0] + arr[1]; // Take the two smallest ropes
-        totalCost += sum; // Add their sum to the total cost
-        arr.splice(0, 2); // Remove the two smallest ropes
-        arr.push(sum); // Add the sum back to the ropes
-        arr.sort((a, b) => a - b); // Re-sort the ropes
-    }
-
-    document.getElementById("result").innerHTML = totalCost; // Display the result
+function compare(a, b) {
+  if (a < b) {
+      return -1;
+  } else if (a > b) {
+      return 1;
+  } else {
+      return 0;
+  }
 }
+ 
+ 
+ 
+function calculateMinCost() {
+  //your code here
+  let str=document.getElementById('rope-lengths').value.split(",");
+  let arr=str.map((str)=>parseInt(str));
+  // console.log(arr);
+  
+let total=0;
+arr=arr.sort(compare);
+// console.log("arr ",arr);
+while(arr.length>=2){
+  let sum=arr[0]+arr[1];
+  // console.log(sum);
+  let rem=[];
+  rem.push(sum);
+  for(let k=2;k<arr.length;k++){
+    rem.push(arr[k]);
+  }
+  rem=rem.sort(compare);
+  // console.log("rem ",rem);
+  arr=[...rem];
+  // console.log("arr ",arr);
+  total=total+sum;
+  // console.log("total "+total+"----------------------");
+}
+console.log(total);
+ 
+ 
+let result=document.getElementById('result');
+result.innerHTML=total;
+}  
+  
+  
