@@ -1,26 +1,42 @@
+function compare(a, b) {
+  if (a < b) {
+      return -1;
+  } else if (a > b) {
+      return 1;
+  } else {
+      return 0;
+  }
+}
+ 
+ 
+ 
 function calculateMinCost() {
   //your code here
-	const inputText = '12, 14, 5, 6, 6, 7'; // Example input
-const ropes = inputText.split(', ').map(Number);
-
-// Build a min-heap (priority queue)
-const heap = new MinHeap();
-ropes.forEach(length => heap.insert(length));
-
-// Calculate the minimum cost
-let totalCost = 0;
-while (heap.size() > 1) {
-    const smallest1 = heap.extractMin();
-    const smallest2 = heap.extractMin();
-    const combinedLength = smallest1 + smallest2;
-    totalCost += combinedLength;
-    heap.insert(combinedLength);
+  let str=document.getElementById('rope-lengths').value.split(",");
+  let arr=str.map((str)=>parseInt(str));
+  // console.log(arr);
+  
+let total=0;
+arr=arr.sort(compare);
+// console.log("arr ",arr);
+while(arr.length>=2){
+  let sum=arr[0]+arr[1];
+  // console.log(sum);
+  let rem=[];
+  rem.push(sum);
+  for(let k=2;k<arr.length;k++){
+    rem.push(arr[k]);
+  }
+  rem=rem.sort(compare);
+  // console.log("rem ",rem);
+  arr=[...rem];
+  // console.log("arr ",arr);
+  total=total+sum;
+  // console.log("total "+total+"----------------------");
 }
-
-// Print the minimum cost inside the <div id="result"></div> element
-const resultDiv = document.getElementById('result');
-resultDiv.textContent = totalCost.toString();
-  
-  
-  
+console.log(total);
+ 
+ 
+let result=document.getElementById('result');
+result.innerHTML=total;
 }  
